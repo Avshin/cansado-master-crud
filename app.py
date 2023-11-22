@@ -26,11 +26,30 @@ def login():
 @app.route('/ciudades')
 def index():
     cdao = ciudadDao()
-    return render_template('/mantenimiento_views/CiudadViews/index.html', lista_ciudades = cdao.getCiudades())
+    lista = cdao.getCiudades()
+    diccionario = []
+    if len (lista) >0:
+        for item in lista:
+            diccionario.append(
+                {
+                    'id_ciudad': item[0],
+                    'detalle_ciudad': item[1]
+                }
+            )
+    return render_template('/mantenimiento_views/CiudadViews/index.html', ciudades=diccionario)
+
 
 @app.route('/add-ciudad')
 def add_ciudad():
-    return render_template('/mantenimiento_views/CiudadViews/form-add.html')
+    cdao = ciudadDao()
+    txtciudad = request.form['txtciudad']
+    guardado = False
+    if txtciudad != None and len(txtciudad.strip()) > 0:
+        guardado = cdao.insertCiudad(txtciudad.strip().upper())
+    if guardado:
+        return redirect(url_for('index'))
+    else:
+        return redirect(url_for(add_ciudad))
 
 @app.route('/save-ciudad', methods=['POST'])
 def save_ciudad():

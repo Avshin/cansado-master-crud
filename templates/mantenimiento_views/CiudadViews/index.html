@@ -2,6 +2,7 @@
 
 {%block mi_contenido%}
 <!-- Page Heading -->
+
 <h1 class="h3 mb-4 text-gray-800">CIUDADES</h1>
 <div class="card">
   <div class="card-header">
@@ -18,16 +19,16 @@
         </tr>
       </thead>
       <tbody>
+        {%for ciudad in ciudades %}
         <tr>
-          {%for item in lista_ciudades%}
-          <th scope="row">{{item['id_ciudad']}}</th>
-          <td>{{item ['detalle_ciudad']}}</td>
+          <th scope="row">{{ciudad['id_ciudad']}}</th>
+          <td>{{ciudad['detalle_ciudad']}}</td>
           <td>
             <a href="" class="btn btn-primary">Editar</a>
             <a href="" class="btn btn-warning">Eliminar</a>
           </td>
         </tr>
-          {% endfor %}
+        {% endfor %}
       </tbody>
     </table>
     {%else%}
@@ -35,8 +36,6 @@
           No hay registros que mostrar
       </div>
     {%endif%}
-
- 
   </div>
 </div>
 {%endblock%}
