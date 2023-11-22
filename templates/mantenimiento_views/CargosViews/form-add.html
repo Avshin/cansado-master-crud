@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{%block mi_contenido%}
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">AGREGAR CARGOS</h1>
+
+
+<form method="POST" action="{{url_for('save_cargos')}}">
+  <div class="card">
+    <div class="card-body">
+      <div class="form-group row">
+        <label  for="staticEmail" class="form-label">AGREGAR DESCRIPCIÓN</label>
+        <input required type="text" class="form-control" name="txt-cargo">
+      </div>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary">AGREGAR</button>
+    </div>
+  </div>
+</form>
+{%endblock%}

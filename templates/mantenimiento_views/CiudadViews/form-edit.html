@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{%block mi_contenido%}
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">AGREGAR CIUDAD</h1>
+
+
+<form method="POST" action="{{url_for('update_ciudad')}}">
+  <div class="card">
+    <div class="card-body">
+      <div class="form-group row">
+
+        <input type="hidden" name="idtxtciudad" value="{{ ciudad['id'] }}">
+        <input required type="text" class="form-control" name="txt-ciudad" value="{{ ciudad['descripcion'] }}">
+      
+      
+      </div>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary">MODIFICAR</button>
+    </div>
+  </div>
+</form>
+{%endblock%}
