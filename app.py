@@ -21,6 +21,10 @@ def menu_tablas():
 def login():
     return render_template('login_views/login.html')
 
+@app.route('/register')
+def register():
+    return render_template('login_views/register.html')
+
 
 #REFERENCIAL - CIUDADES
 @app.route('/ciudades')

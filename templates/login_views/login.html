@@ -56,18 +56,18 @@
                                                 <label class="custom-control-label" for="customCheck">Recordarme</label>
                                             </div>
                                         </div>
-                                        <a href="templates/modulo_views/menu1.html" class="btn btn-primary btn-user btn-block">
+                                        <a href="{{url_for('login')}}" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </a>
 
                                     </form>
 
-                                    <div class="text-center">
+                                    <div class="text-white bg-dark">
                                         <a class="small" href="forgot-password.html">Olvidaste tu contraseña?</a>
                                     </div>
 
-                                    <div class="text-center">
-                                        <a class="small" href="register.html">Crear cuenta</a>
+                                    <div class="text-white bg-dark">
+                                        <a class="small" href="{{url_for('register')}}">Crear cuenta</a>
                                         <br><br><br><br><br><br><br><br>
                                     </div>
                                 </div>
