@@ -25,6 +25,10 @@ def login():
 def register():
     return render_template('login_views/register.html')
 
+@app.route('/recuperar')
+def recuperar():
+    return render_template('login_views/recuperar.html')
+
 
 #REFERENCIAL - CIUDADES
 @app.route('/ciudades')
