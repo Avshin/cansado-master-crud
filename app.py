@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from referenciales.ciudad.CiudadDAO import ciudadDao
 from referenciales.cargo.CargoDAO import CargosDao
 from referenciales.pais.PaisDAO import paisDao
+from referenciales.grado.GradoDAO import GradoDao
 
 app = Flask(__name__)
 
@@ -28,6 +29,10 @@ def register():
 @app.route('/recuperar')
 def recuperar():
     return render_template('login_views/recuperar.html')
+
+@app.route('/ayuda')
+def ayuda():
+    return render_template('login_views/ayuda.html')
 
 
 #REFERENCIAL - CIUDADES
@@ -97,6 +102,14 @@ def add_pais():
 def save_pais():
     print(request.form)
     return redirect(url_for('paisex'))
+
+#REFERENCIAL GRADO ACADEMICO
+@app.route('/grados')
+def grados():
+    gadao = GradoDao()
+    return render_template('/mantenimiento_views/gradoViews/grado.html', tuplas_grado = gadao.getGrado())
+
+
 
 
 if __name__ == '__main__':

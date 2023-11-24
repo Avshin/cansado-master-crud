@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{%block mi_contenido%}
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">Editar Grado</h1>
+
+
+<form method="POST" action="">
+  <div class="card">
+    <div class="card-body">
+      <div class="form-group row">
+
+        <input type="hidden" name="idtxtgrado" value="">
+        <input required type="text" class="form-control" name="txt-ciudad" value="">
+      
+      
+      </div>
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary">Modificar</button>
+    </div>
+  </div>
+</form>
+{%endblock%}

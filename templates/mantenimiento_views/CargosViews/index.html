@@ -19,8 +19,8 @@
           </tr>
         </thead>
         <tbody>
+          {%for item in lista_cargos%}
           <tr>
-            {%for item in lista_cargos%}
             <th scope="row">{{item['id_cargo']}}</th>
             <td>{{item ['detalle_cargo']}}</td>
             <td>
