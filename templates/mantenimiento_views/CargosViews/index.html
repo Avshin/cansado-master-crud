@@ -24,7 +24,8 @@
             <th scope="row">{{item['id_cargo']}}</th>
             <td>{{item ['detalle_cargo']}}</td>
             <td>
-              <button type="button" class="btn btn-info">MODFICAR</button>
+
+              <a href="{{url_for('edit_cargo', idcargo = item['id_cargo'])}}" class="btn btn-info">MODFICAR</a>
 
               <a href="{{url_for('eliminar_cargo', idcargo = item['id_cargo'])}}" class="btn btn-warning" >ELIMINAR </a>
             </td>

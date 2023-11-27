@@ -5,13 +5,13 @@
 <h1 class="h3 mb-4 text-gray-800">MODIFICAR</h1>
 
 
-<form method="POST" action="{{url_for('')}}">
+<form method="POST" action="{{url_for('update_cargo')}}">
   <div class="card">
     <div class="card-body">
       <div class="form-group row">
 
-        <input type="hidden" name="idtxtcargos" value="{{ cargos['id_cargos'] }}">
-        <input required type="text" class="form-control" name="txt-cargos" value="{{ cargos['detalle_cargo'] }}">
+        <input type="hidden" name="idtxtcargos" value="{{cargos['id_cargos']}}">
+        <input required type="text" class="form-control" name="txtcargos" value="{{cargos['detalle_cargo']}}">
 
 
       </div>

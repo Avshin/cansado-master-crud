@@ -109,5 +109,3 @@ class ciudadDao:
             cur.close()
             con.close()
         return False
-    
-    

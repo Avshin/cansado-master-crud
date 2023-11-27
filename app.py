@@ -113,6 +113,27 @@ def eliminar_cargo(idcargo):
     return redirect(url_for('indexCg'))
 
 
+@app.route('/edit-cargo/<idcargo>')
+def edit_cargo(idcargo):
+    cadao = CargosDao()
+    diccionario_cargo = cadao.getCargosById(idcargo)
+    return render_template('/mantenimiento_views/CargosViews/form-edit.html' , cargos = diccionario_cargo)
+
+@app.route('/update-cargo', methods=['POST'])
+def update_cargo():
+    cadao = CargosDao()
+    idcargo = request.form['idtxtcargos']
+    txtcargos = request.form['txtcargos']
+    guardado = False
+    if txtcargos != None and len(txtcargos.strip()) > 0:
+        guardado = cadao.updateCargos(idcargo,txtcargos.strip().upper())
+    if guardado:
+        return redirect(url_for('indexCg'))
+    else:
+        return redirect(url_for('edit_cargo', idcargo=idcargo))
+
+
+
 
 #REFERENCIAL PAIS
 @app.route('/paises')

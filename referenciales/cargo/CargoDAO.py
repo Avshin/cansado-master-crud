@@ -84,3 +84,25 @@ class CargosDao:
             cur.close()
             con.close()
         return False
+
+
+
+    def updateCargos(self, id, descripcion):
+        query = """
+                UPDATE public.cargos
+                SET  detalle_cargo=%s
+                WHERE id_cargo=%s;
+        """
+        conexion=Conexion()
+        con = conexion.getConexion()
+        cur = con.cursor()
+        try:
+            cur.execute(query, (descripcion, id,))
+            con.commit()
+            return True
+        except con.Error as e:
+            print(f"codigo de error: {e.pgcode}, mensaje: {e.pgerror}")
+        finally:
+            cur.close()
+            con.close()
+        return False
