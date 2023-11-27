@@ -76,7 +76,7 @@ class personasDAO:
     def insertPersonas(self, cedula, nombre, apellido, fecha, direccion, telefono, ciudad, pais):
         query = """
                 INSERT INTO public.personas(
-            id_persona, cin_persona, nombre_persona, apellido_persona, fechanac_persona,
+             cin_persona, nombre_persona, apellido_persona, fechanac_persona,
             direcc_persona, tel_persona, id_ciudad, id_pais)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
         """
