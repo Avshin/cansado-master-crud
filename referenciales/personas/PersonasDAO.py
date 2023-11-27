@@ -6,7 +6,7 @@ class personasDAO:
         direcc_persona, tel_persona, id_ciudad, detalle_ciudad, id_pais,detalle_pais 
         FROM public.personas
         left join ciudad using (id_ciudad)
-        left join pais using (id_pais)      
+        left join pais using (id_pais)
         """
         lista=[]
         conexion=Conexion()
@@ -76,9 +76,9 @@ class personasDAO:
     def insertPersonas(self, cedula, nombre, apellido, fecha, direccion, telefono, ciudad, pais):
         query = """
                 INSERT INTO public.personas(
-            id_persona, cin_persona, nombre_persona, apellido_persona, fechanac_persona, 
+            id_persona, cin_persona, nombre_persona, apellido_persona, fechanac_persona,
             direcc_persona, tel_persona, id_ciudad, id_pais)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
         """
         conexion=Conexion()
         con = conexion.getConexion()
