@@ -3,6 +3,7 @@ from referenciales.ciudad.CiudadDAO import ciudadDao
 from referenciales.cargo.CargoDAO import CargosDao
 from referenciales.pais.PaisDAO import paisDao
 from referenciales.grado.GradoDAO import GradoDao
+from referenciales.personas.PersonasDAO import personasDAO
 
 app = Flask(__name__)
 
@@ -119,6 +120,60 @@ def save_pais():
 def grados():
     gadao = GradoDao()
     return render_template('/mantenimiento_views/gradoViews/grado.html', tuplas_grado = gadao.getGrado())
+
+#REFERENCIAL PERSONAS
+@app.route('/personas')
+def personas():
+    pedao = personasDAO()
+    return render_template('/mantenimiento_views/Personaviews/persona.html', lista_personas = pedao.getPersonas())
+
+@app.route('/add-personas')
+def add_personas():
+    lista_ciudades = cdao.getCiudades()
+    padao = paisDao()
+    lista_paises = padao.getPaises()
+    return render_template('/mantenimiento_views/Personaviews/form-add.html', lista_ciudades = lista_ciudades, lista_paises = lista_paises)
+
+@app.route('/save-personas', methods=['POST'])
+def save_personas():
+    pedao = personasDAO()
+    txtcedula = request.form['txtcedula']
+    txtnombre = request.form['txtnombre']
+    txtapellido = request.form['txtapellido']
+    txtfecha = request.form['txtfecha']
+    txtdireccion = request.form['txtdireccion']
+    txttelefono = request.form['txttelefono']
+    detalle_ciudad = request.form['txtciudad']
+    detalle_pais = request.form['txtpais']
+    guardado = False
+    if txtcedula != None and len(txtcedula.strip()) > 0:
+        guardado = pedao.insertPersonas(txtcedula.strip().upper())
+        
+    if txtnombre != None and len(txtnombre.strip()) > 0:
+        guardado = pedao.insertPersonas(txtnombre.strip().upper())
+        
+    if txtapellido != None and len(txtapellido.strip()) > 0:
+        guardado = pedao.insertPersonas(txtapellido.strip().upper())
+    
+    if txtfecha != None and len(txtfecha.strip()) > 0:
+        guardado = pedao.insertPersonas(txtfecha.strip())
+    
+    if txtdireccion != None and len(txtdireccion.strip()) > 0:
+        guardado = pedao.insertPersonas(txtdireccion.strip())
+    
+    if txttelefono != None and len(txttelefono.strip()) > 0:
+        guardado = pedao.insertPersonas(txttelefono.strip())
+    
+    if detalle_ciudad != None and len(detalle_ciudad.strip()) > 0:
+        guardado = pedao.insertPersonas(detalle_ciudad.strip())
+        
+    if detalle_pais != None and len(detalle_pais.strip()) > 0:
+        guardado = pedao.insertPersonas(detalle_pais.strip())
+    
+    if guardado:
+        return redirect(url_for('personas'))
+    else:
+        return redirect(url_for('add-personas'))
 
 
 

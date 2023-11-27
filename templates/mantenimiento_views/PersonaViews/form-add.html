@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{%block mi_contenido%}
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">AGREGAR PERSONAS</h1>
+
+<form method="POST" action="{{url_for('save_personas')}}">
+  <div class="card">
+
+
+    <div class="card-body">
+
+      <div class="form-group row">
+        <label  for="staticEmail" class="form-label">Cedula</label>
+        <input required type="text" class="form-control" name="txtcedula">
+      </div>
+
+      <div class="form-group row">
+        <label  for="staticEmail" class="form-label">Nombre</label>
+        <input required type="text" class="form-control" name="txtnombre">
+      </div>
+
+      <div class="form-group row">
+        <label  for="staticEmail" class="form-label">Apellido</label>
+        <input required type="text" class="form-control" name="txtapellido">
+      </div>
+
+      <div class="form-group row">
+        <label  for="staticEmail" class="form-label">fecha de nacimiento</label>
+        <input required type="date" class="form-control" name="txtfecha">
+      </div>
+
+      <div class="form-group row">
+        <label  for="staticEmail" class="form-label">Direccion</label>
+        <input required type="text" class="form-control" name="txtdireccion">
+      </div>
+
+      <div class="form-group row">
+        <label  for="staticEmail" class="form-label">Telefono</label>
+        <input required type="text" class="form-control" name="txttelefono">
+      </div>
+
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">CIUDADES</label>
+        <select class="form-control" name="txtciudad" >
+          <option>SELECCIONE UNO</option>
+          {%for item in lista_ciudades%}
+          <option value="{{item['id_ciudad']}}" >{{item['detalle_ciudad']}}</option>
+
+          {%endfor%}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">PAISES</label>
+        <select class="form-control" name="txtpais" >
+          <option>SELECCIONE UNA OPCIÓN</option>
+          {%for item in lista_paises%}
+          <option value="{{item['id_pais']}}" >{{item['detalle_pais']}}</option>
+
+          {%endfor%}
+        </select>
+      </div>
+
+
+    </div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary">AGREGAR</button>
+    </div>
+  </div>
+</form>
+{%endblock%}
