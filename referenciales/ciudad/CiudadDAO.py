@@ -22,8 +22,8 @@ class ciudadDao:
             cur.close()
             con.close()
         return lista
-                    
-            
+
+
 
 
     def getCiudadesById(self, id):

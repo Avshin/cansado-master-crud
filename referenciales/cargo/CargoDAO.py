@@ -21,3 +21,45 @@ class CargosDao:
             cur.close()
             con.close()
         return lista
+
+
+def getCargosById(self, id):
+        query = """
+                select id_cargo, detalle_cargo
+                from public.cargos where id_cargo=%s
+        """
+        conexion=Conexion()
+        con = conexion.getConexion()
+        cur = con.cursor()
+        try:
+            cur.execute(query, (id,))
+            cargo = cur.fetchone()
+            if cargo:
+                return{'id_cargo': cargo[0], 'detalle_cargo': cargo[1]}
+            return None
+        except con.Error as e:
+            print(f"codigo de error: {e.pgcode}, mensaje: {e.pgerror}")
+        finally:
+            cur.close()
+            con.close()
+
+
+
+def insertCargos(self, descripcion):
+        query = """
+                insert into public.cargos (detalle_cargo)
+                values(%s)
+        """
+        conexion=Conexion()
+        con = conexion.getConexion()
+        cur = con.cursor()
+        try:
+            cur.execute(query, (descripcion,))
+            con.commit()
+            return True
+        except con.Error as e:
+            print(f"codigo de error: {e.pgcode}, mensaje: {e.pgerror}")
+        finally:
+            cur.close()
+            con.close()
+        return False

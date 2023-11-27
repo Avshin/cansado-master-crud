@@ -95,8 +95,16 @@ def add_cargo():
 
 @app.route('/save-cargo', methods=['POST'])
 def save_cargos():
-    print(request.form)
-    return redirect(url_for('indexCg'))
+    cadao = CargosDao()
+
+    txtcargo = request.form['txt-cargo']
+    guardado = False
+    if txtcargo != None and len(txtcargo.strip()) > 0:
+        guardado = cadao.insert(txtcargo.strip().upper())
+    if guardado:
+        return redirect(url_for('indexCg'))
+    else:
+        return redirect(url_for('add_cargo'))
 
 
 
