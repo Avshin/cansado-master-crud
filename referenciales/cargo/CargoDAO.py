@@ -63,3 +63,24 @@ class CargosDao:
             cur.close()
             con.close()
         return False
+
+
+
+    def deleteCargo(self, id):
+        query = """
+                DELETE FROM public.cargos
+                WHERE id_cargo=%s;
+        """
+        conexion=Conexion()
+        con = conexion.getConexion()
+        cur = con.cursor()
+        try:
+            cur.execute(query, (id,))
+            con.commit()
+            return True
+        except con.Error as e:
+            print(f"codigo de error: {e.pgcode}, mensaje: {e.pgerror}")
+        finally:
+            cur.close()
+            con.close()
+        return False

@@ -67,8 +67,8 @@ class ciudadDao:
             cur.close()
             con.close()
         return False
-    
-    
+
+
     def deleteCiudad(self, id):
         query = """
                 DELETE FROM public.ciudad

@@ -25,7 +25,8 @@
             <td>{{item ['detalle_cargo']}}</td>
             <td>
               <button type="button" class="btn btn-info">MODFICAR</button>
-              <button type="button" class="btn btn-info">ELIMINAR</button>
+
+              <a href="{{url_for('eliminar_cargo', idcargo = item['id_cargo'])}}" class="btn btn-warning" >ELIMINAR </a>
             </td>
           </tr>
             {% endfor %}

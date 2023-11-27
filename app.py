@@ -106,6 +106,12 @@ def save_cargos():
     else:
         return redirect(url_for('add_cargo'))
 
+@app.route('/eliminar-cargo/<idcargo>')
+def eliminar_cargo(idcargo):
+    cadao = CargosDao()
+    cadao.deleteCargo(idcargo)
+    return redirect(url_for('indexCg'))
+
 
 
 #REFERENCIAL PAIS
