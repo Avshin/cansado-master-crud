@@ -146,11 +146,15 @@ def save_personas():
     detalle_ciudad = request.form['txtciudad']
     detalle_pais = request.form['txtpais']
     guardado = False
-    if txtcedula != None and len(txtcedula.strip()) > 0:
-        guardado = pedao.insertPersonas(txtcedula.strip().upper())
+    if txtcedula and txtnombre != None and len(txtcedula.strip(), txtnombre.strip()) > 0:
+        guardado = pedao.insertPersonas(txtcedula.strip().upper(), txtnombre.strip().upper())
+     
+     
+     
+     
         
-    if txtnombre != None and len(txtnombre.strip()) > 0:
-        guardado = pedao.insertPersonas(txtnombre.strip().upper())
+   # if txtnombre != None and len(txtnombre.strip()) > 0:
+    #    guardado = pedao.insertPersonas(txtnombre.strip().upper())
         
     if txtapellido != None and len(txtapellido.strip()) > 0:
         guardado = pedao.insertPersonas(txtapellido.strip().upper())
