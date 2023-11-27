@@ -23,7 +23,7 @@ class CargosDao:
         return lista
 
 
-def getCargosById(self, id):
+    def getCargosById(self, id):
         query = """
                 select id_cargo, detalle_cargo
                 from public.cargos where id_cargo=%s
@@ -45,7 +45,7 @@ def getCargosById(self, id):
 
 
 
-def insertCargos(self, descripcion):
+    def insertCargos(self, descripcion):
         query = """
                 insert into public.cargos (detalle_cargo)
                 values(%s)

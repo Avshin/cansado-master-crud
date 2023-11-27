@@ -100,7 +100,7 @@ def save_cargos():
     txtcargo = request.form['txt-cargo']
     guardado = False
     if txtcargo != None and len(txtcargo.strip()) > 0:
-        guardado = cadao.insert(txtcargo.strip().upper())
+        guardado = cadao.insertCargos(txtcargo.strip().upper())
     if guardado:
         return redirect(url_for('indexCg'))
     else:
