@@ -57,8 +57,8 @@ def save_ciudad():
         return redirect(url_for('index'))
     else:
         return redirect(url_for('add_ciudad'))
-    
-    
+
+
 @app.route('/eliminar-ciudad/<idciudad>')
 def eliminar_ciudad(idciudad):
     cdao.deleteCiudad(idciudad)
@@ -66,9 +66,9 @@ def eliminar_ciudad(idciudad):
 
 @app.route('/edit-ciudad/<idciudad>')
 def edit_ciudad(idciudad):
-    diccionario_ciudad = cdao.getCiudadesById(idciudad)  
+    diccionario_ciudad = cdao.getCiudadesById(idciudad)
     return render_template('/mantenimiento_views/ciudadViews/form-edit.html' , ciudad = diccionario_ciudad)
-   
+
 @app.route('/update-ciudad', methods=['POST'])
 def update_ciudad():
     idciudad = request.form['idtxtciudad']
@@ -80,7 +80,7 @@ def update_ciudad():
         return redirect(url_for('index'))
     else:
         return redirect(url_for('edit_ciudad', idciudad=idciudad))
-    
+
 
 
 #REFERENCIAL CARGOS
@@ -143,37 +143,33 @@ def save_personas():
     txtfecha = request.form['txtfecha']
     txtdireccion = request.form['txtdireccion']
     txttelefono = request.form['txttelefono']
-    detalle_ciudad = request.form['txtciudad']
-    detalle_pais = request.form['txtpais']
+    txtciudad = request.form['txtciudad']
+    txtpais = request.form['txtpais']
     guardado = False
-    if txtcedula and txtnombre != None and len(txtcedula.strip(), txtnombre.strip()) > 0:
-        guardado = pedao.insertPersonas(txtcedula.strip().upper(), txtnombre.strip().upper())
-     
-     
-     
-     
-        
-   # if txtnombre != None and len(txtnombre.strip()) > 0:
-    #    guardado = pedao.insertPersonas(txtnombre.strip().upper())
-        
+    if txtcedula != None and len(txtcedula.strip()) > 0:
+        guardado = pedao.insertPersonas(txtcedula.strip().upper())
+
+    if txtnombre != None and len(txtnombre.strip()) > 0:
+        guardado = pedao.insertPersonas(txtnombre.strip().upper())
+
     if txtapellido != None and len(txtapellido.strip()) > 0:
         guardado = pedao.insertPersonas(txtapellido.strip().upper())
-    
+
     if txtfecha != None and len(txtfecha.strip()) > 0:
         guardado = pedao.insertPersonas(txtfecha.strip())
-    
+
     if txtdireccion != None and len(txtdireccion.strip()) > 0:
         guardado = pedao.insertPersonas(txtdireccion.strip())
-    
+
     if txttelefono != None and len(txttelefono.strip()) > 0:
         guardado = pedao.insertPersonas(txttelefono.strip())
-    
-    if detalle_ciudad != None and len(detalle_ciudad.strip()) > 0:
-        guardado = pedao.insertPersonas(detalle_ciudad.strip())
-        
-    if detalle_pais != None and len(detalle_pais.strip()) > 0:
-        guardado = pedao.insertPersonas(detalle_pais.strip())
-    
+
+    if txtciudad != None and len(txtciudad.strip()) > 0:
+        guardado = pedao.insertPersonas(txtciudad.strip())
+
+    if txtpais != None and len(txtpais.strip()) > 0:
+        guardado = pedao.insertPersonas(txtpais.strip())
+
     if guardado:
         return redirect(url_for('personas'))
     else:
