@@ -36,25 +36,18 @@ def ayuda():
 
 
 #REFERENCIAL - CIUDADES
+cdao=ciudadDao()
 @app.route('/ciudades')
 def index():
-    cdao = ciudadDao()
-    lista = cdao.getCiudades()
-    diccionario = []
-    if len (lista) >0:
-        for item in lista:
-            diccionario.append(
-                {
-                    'id_ciudad': item[0],
-                    'detalle_ciudad': item[1]
-                }
-            )
-    return render_template('/mantenimiento_views/CiudadViews/index.html', ciudades=diccionario)
-
+    return render_template('/mantenimiento_views/ciudadViews/index.html', lista_ciudades = cdao.getCiudades())
 
 @app.route('/add-ciudad')
 def add_ciudad():
-    cdao = ciudadDao()
+    return render_template('/mantenimiento_views/ciudadViews/form-add.html')
+
+
+@app.route('/save-ciudad', methods=['POST'])
+def save_ciudad():
     txtciudad = request.form['txtciudad']
     guardado = False
     if txtciudad != None and len(txtciudad.strip()) > 0:
@@ -62,13 +55,31 @@ def add_ciudad():
     if guardado:
         return redirect(url_for('index'))
     else:
-        return redirect(url_for(add_ciudad))
-
-@app.route('/save-ciudad', methods=['POST'])
-def save_ciudad():
-    print(request.form)
+        return redirect(url_for('add_ciudad'))
+    
+    
+@app.route('/eliminar-ciudad/<idciudad>')
+def eliminar_ciudad(idciudad):
+    cdao.deleteCiudad(idciudad)
     return redirect(url_for('index'))
 
+@app.route('/edit-ciudad/<idciudad>')
+def edit_ciudad(idciudad):
+    diccionario_ciudad = cdao.getCiudadesById(idciudad)  
+    return render_template('/mantenimiento_views/ciudadViews/form-edit.html' , ciudad = diccionario_ciudad)
+   
+@app.route('/update-ciudad', methods=['POST'])
+def update_ciudad():
+    idciudad = request.form['idtxtciudad']
+    txtciudad = request.form['txtciudad']
+    guardado = False
+    if txtciudad != None and len(txtciudad.strip()) > 0:
+        guardado = cdao.updateCiudad(idciudad,txtciudad.strip().upper())
+    if guardado:
+        return redirect(url_for('index'))
+    else:
+        return redirect(url_for('edit_ciudad', idciudad=idciudad))
+    
 
 
 #REFERENCIAL CARGOS
