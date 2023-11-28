@@ -6,7 +6,7 @@
 <h1 class="h3 mb-4 text-gray-800">Grados Academicos</h1>
 <div class="card">
   <div class="card-header">
-    <a href="" class="btn btn-primary">AGREGAR</a>
+    <a href="{{url_for('add_grado')}}" class="btn btn-primary">AGREGAR</a>
   </div>
   <div class="card-body">
     {%if tuplas_grado|length > 0 %}
@@ -24,8 +24,10 @@
           <th scope="row">{{item['id_gacademico']}}</th>
           <td>{{item['detalle_gacademico']}}</td>
           <td>
-            <button type="button" class="btn btn-info">Editar</button>
-            <button type="button" class="btn btn-info">Eliminar</button>
+            <a href="{{url_for('edit_grado', idgrado= item['id_gacademico'])}}" class="btn btn-info">Editar</a>
+
+
+            <a href="{{url_for('eliminar_grado', idgrado= item['id_gacademico'])}}"  class="btn btn-warning">Eliminar<a/>
           </td>
         </tr>
         {% endfor %}

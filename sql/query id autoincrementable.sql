@@ -17,3 +17,23 @@ ALTER COLUMN id_cargo SET DEFAULT nextval('secuencia_cargos');
 
 
 
+CREATE SEQUENCE secuencia_grados;
+
+SELECT setval('secuencia_grados', (SELECT max(id_gacademico) FROM grados_academicos));
+
+ALTER TABLE grados_academicos
+ALTER COLUMN id_gacademico SET DEFAULT nextval('secuencia_grados');
+
+
+UPDATE public.cargos
+                SET  detalle_cargo='auxiliar'
+                WHERE id_cargo=1;
+
+
+
+
+
+
+
+
+

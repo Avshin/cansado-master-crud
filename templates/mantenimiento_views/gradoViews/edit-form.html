@@ -5,13 +5,13 @@
 <h1 class="h3 mb-4 text-gray-800">Editar Grado</h1>
 
 
-<form method="POST" action="">
+<form method="POST" action="{{url_for('update_grado')}}">
   <div class="card">
     <div class="card-body">
       <div class="form-group row">
 
-        <input type="hidden" name="idtxtgrado" value="">
-        <input required type="text" class="form-control" name="txt-ciudad" value="">
+        <input type="hidden" name="idtxtgrado" value="{{grado['id_gacademico']}}">
+        <input required type="text" class="form-control" name="txtgrado" value="{{grado['detalle_gacademico']}}">
       
       
       </div>

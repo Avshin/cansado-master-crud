@@ -5,12 +5,12 @@
 <h1 class="h3 mb-4 text-gray-800">Agregar Grado Académico</h1>
 
 
-<form method="POST" action="">
+<form method="POST" action="{{url_for('save_grado')}}">
   <div class="card">
     <div class="card-body">
       <div class="form-group row">
         <label  for="staticEmail" class="form-label">Agregar Nivel academico</label>
-        <input required type="text" class="form-control" name="txt-grado">
+        <input required type="text" class="form-control" name="txtgrado">
       </div>
     </div>
     <div class="card-footer">

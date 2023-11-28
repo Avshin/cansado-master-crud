@@ -121,8 +121,9 @@ def edit_cargo(idcargo):
 
 @app.route('/update-cargo', methods=['POST'])
 def update_cargo():
+    print(request.form)
     cadao = CargosDao()
-    idcargo = request.form['idtxtcargos']
+    idcargo = request.form['txtidcargos']
     txtcargos = request.form['txtcargos']
     guardado = False
     if txtcargos != None and len(txtcargos.strip()) > 0:
@@ -147,14 +148,126 @@ def add_pais():
 
 @app.route('/save-pais', methods=['POST'])
 def save_pais():
+    padao = paisDao()
     print(request.form)
+    txtpais = request.form['txtpais']
+    guardado = False
+    if txtpais != None and len(txtpais.strip()) > 0:
+        guardado = padao.insertPais(txtpais.strip().upper())
+    if guardado:
+        return redirect(url_for('paisex'))
+    else:
+        return redirect(url_for('add_pais'))
+
+
+@app.route('/eliminar-pais/<idpais>')
+def eliminar_pais(idpais):
+    padao = paisDao()
+    padao.deletePais(idpais)
     return redirect(url_for('paisex'))
+
+
+
+@app.route('/edit-pais/<idpais>')
+def edit_pais(idpais):
+    padao = paisDao()
+    diccionario_pais = padao.getPaisById(idpais)
+    return render_template('/mantenimiento_views/PaisViews/form-edit.html' , pais = diccionario_pais)
+
+@app.route('/update-pais', methods=['POST'])
+def update_pais():
+    print(request.form)
+    padao = paisDao()
+    idpais = request.form['idtxtpais']
+    txtpais = request.form['txtpais']
+    guardado = False
+    if txtpais != None and len(txtpais.strip()) > 0:
+        guardado = padao.updatePais(idpais,txtpais.strip().upper())
+    if guardado:
+        return redirect(url_for('paisex'))
+    else:
+        return redirect(url_for('edit_cargo', idpais=idpais))
+
+
 
 #REFERENCIAL GRADO ACADEMICO
 @app.route('/grados')
 def grados():
     gadao = GradoDao()
     return render_template('/mantenimiento_views/gradoViews/grado.html', tuplas_grado = gadao.getGrado())
+
+@app.route('/add-grado')
+def add_grado():
+    return render_template('/mantenimiento_views/gradoViews/form-add.html')
+
+@app.route('/save-grado', methods=['POST'])
+def save_grado():
+    gadao = GradoDao()
+    print(request.form)
+    txtgrado = request.form['txtgrado']
+    guardado = False
+    if txtgrado != None and len(txtgrado.strip()) > 0:
+        guardado = gadao.insertGrado(txtgrado.strip().upper())
+    if guardado:
+        return redirect(url_for('grados'))
+    else:
+        return redirect(url_for('add_grado'))
+    
+@app.route('/eliminar-grado/<idgrado>')
+def eliminar_grado(idgrado):
+    gadao = GradoDao()
+    gadao.deleteGrado(idgrado)
+    return redirect(url_for('grados'))
+
+
+@app.route('/edit-grado/<idgrado>')
+def edit_grado(idgrado):
+    gadao = GradoDao()
+    diccionario_grado = gadao.getGradoById(idgrado)
+    return render_template('/mantenimiento_views/gradoViews/edit-form.html', grado =  diccionario_grado)
+
+
+@app.route('/update-grado', methods=['POST'])
+def update_grado():
+    print(request.form)
+    gadao = GradoDao()
+    idgrado = request.form['idtxtgrado']
+    txtgrado = request.form['txtgrado']
+    guardado = False
+    if txtgrado != None and len(txtgrado.strip()) > 0:
+        guardado = gadao.updateGrado(idgrado,txtgrado.strip().upper())
+    if guardado:
+        return redirect(url_for('grados'))
+    else:
+        return redirect(url_for('edit_grado', idgrado=idgrado))
+
+
+
+
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #REFERENCIAL PERSONAS
 @app.route('/personas')
