@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{%block mi_contenido%}
+<!-- Page Heading -->
+<h1 class="h3 mb-4 text-gray-800">MODIFICAR</h1>
+
+
+<form method="POST" action="{{url_for('update_persona')}}">
+<div class="card">
+    <div class="card-body">
+    <div class="form-group row">
+
+        <input type="hidden" name="txtidpersona" value="{{ persona['id_persona']}}">
+
+
+        <label  for="staticEmail" class="form-label">Cedula</label>
+        <input required type="text" class="form-control" name="txtcedula" value="{{ persona['cin_persona']}}">
+
+
+
+        <label  for="staticEmail" class="form-label">Nombre</label>
+        <input required type="text" class="form-control" name="txtnombre" value="{{ persona['nombre_persona']}}" >
+
+
+
+        <label  for="staticEmail" class="form-label">Apellido</label>
+        <input required type="text" class="form-control" name="txtapellido" value="{{ persona['apellido_persona']}}">
+
+
+        <label  for="staticEmail" class="form-label">fecha de nacimiento</label>
+        <input required type="date" class="form-control" name="txtfecha" value="{{ persona['fechanac_persona']}}">
+
+
+
+        <label  for="staticEmail" class="form-label">Direccion</label>
+        <input required type="text" class="form-control" name="txtdireccion" value="{{ persona['direcc_persona']}}">
+
+
+        <label  for="staticEmail" class="form-label">Telefono</label>
+        <input required type="text" class="form-control" name="txttelefono" value="{{ persona['tel_persona']}}">
+
+
+        <label for="exampleFormControlSelect1">CIUDADES</label>
+        <select class="form-control" name="txtciudad" >
+        <option>SELECCIONE UNO</option>
+
+        {%for item in lista_ciudades%}
+        <option value="{{item['id_ciudad']}}" >{{item['detalle_ciudad']}}</option>
+
+        {%endfor%}
+        </select>
+
+
+
+            <label for="exampleFormControlSelect1">PAISES</label>
+            <select class="form-control" name="txtpais" >
+            <option>SELECCIONE UNA OPCIÓN</option>
+            {%for item in lista_paises%}
+            <option value="{{item['id_pais']}}" >{{item['detalle_pais']}}</option>
+
+            {%endfor%}
+            </select>
+
+    </div>
+    </div>
+    <div class="card-footer">
+    <button type="submit" class="btn btn-primary">MODIFICAR</button>
+    </div>
+</div>
+</form>
+{%endblock%}

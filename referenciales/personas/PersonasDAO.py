@@ -34,13 +34,13 @@ class personasDAO:
             cur.close()
             con.close()
         return lista
-    
-    
-    def selectById(self):
+
+
+    def getPersonatById(self, id):
         sql = """
-             
-             SELECT id_persona, cin_persona, nombre_persona, apellido_persona, fechanac_persona, 
-        direcc_persona, tel_persona, id_ciudad, detalle_ciudad, id_pais,detalle_pais 
+
+            SELECT id_persona, cin_persona, nombre_persona, apellido_persona, fechanac_persona,
+        direcc_persona, tel_persona, id_ciudad, detalle_ciudad, id_pais,detalle_pais
         FROM public.personas
         left join ciudad using (id_ciudad)
         left join pais using (id_pais)
@@ -71,8 +71,8 @@ class personasDAO:
         finally:
             cur.close()
             con.close()
-            
-            
+
+
     def insertPersonas(self, cedula, nombre, apellido, fecha, direccion, telefono, ciudad, pais):
         query = """
                 INSERT INTO public.personas(
@@ -85,6 +85,58 @@ class personasDAO:
         cur = con.cursor()
         try:
             cur.execute(query, (cedula, nombre, apellido, fecha, direccion, telefono, ciudad, pais,))
+            con.commit()
+            return True
+        except con.Error as e:
+            print(f"codigo de error: {e.pgcode}, mensaje: {e.pgerror}")
+        finally:
+            cur.close()
+            con.close()
+        return False
+
+
+
+
+    def deletePersona(self, id):
+        query = """
+                DELETE FROM public.personas
+                WHERE id_persona=%s;
+        """
+        conexion=Conexion()
+        con = conexion.getConexion()
+        cur = con.cursor()
+        try:
+            cur.execute(query, (id,))
+            con.commit()
+            return True
+        except con.Error as e:
+            print(f"codigo de error: {e.pgcode}, mensaje: {e.pgerror}")
+        finally:
+            cur.close()
+            con.close()
+        return False
+
+
+
+
+    def updatePersona(self, id, cedula, nombre, apellido, fecha, direccion, telefono, ciudad, pais,):
+        query = """
+                UPDATE public.personas
+                SET  cin_persona=%s,
+                    nombre_persona=%s,
+                    apellido_persona=%s,
+                    fechanac_persona=%s,
+                    direcc_persona=%s,
+                    tel_persona=%s,
+                    detalle_ciudad=%s,
+                    detalle_pais=%s
+                WHERE id_persona=%s;
+        """
+        conexion=Conexion()
+        con = conexion.getConexion()
+        cur = con.cursor()
+        try:
+            cur.execute(query, (id,cedula, nombre, apellido, fecha, direccion, telefono, ciudad, pais, ))
             con.commit()
             return True
         except con.Error as e:

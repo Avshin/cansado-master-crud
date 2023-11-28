@@ -62,8 +62,8 @@ class paisDao:
             cur.close()
             con.close()
         return False
-    
-    
+
+
     def updatePais(self, id, descripcion):
         query = """
                 UPDATE public.pais
@@ -83,7 +83,7 @@ class paisDao:
             cur.close()
             con.close()
         return False
-    
+
     def getPaisById(self, id):
         query = """
                 select id_pais, detalle_pais

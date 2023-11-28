@@ -212,7 +212,7 @@ def save_grado():
         return redirect(url_for('grados'))
     else:
         return redirect(url_for('add_grado'))
-    
+
 @app.route('/eliminar-grado/<idgrado>')
 def eliminar_grado(idgrado):
     gadao = GradoDao()
@@ -244,25 +244,6 @@ def update_grado():
 
 
 
-    
-    
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -285,6 +266,7 @@ def add_personas():
 @app.route('/save-personas', methods=['POST'])
 def save_personas():
     pedao = personasDAO()
+    txtidpersona= request.form['txtidpersona']
     txtcedula = request.form['txtcedula']
     txtnombre = request.form['txtnombre']
     txtapellido = request.form['txtapellido']
@@ -299,31 +281,53 @@ def save_personas():
                                         txtapellido.strip().upper(), txtfecha.strip().upper(), txtdireccion.strip().upper(), txttelefono.strip().upper(),
                                         txtciudad.strip().upper(), txtpais.strip().upper())
 
-    #if txtnombre != None and len(txtnombre.strip()) > 0:
-     #   guardado = pedao.insertPersonas(txtnombre.strip().upper())
-
-    #if txtapellido != None and len(txtapellido.strip()) > 0:
-     #   guardado = pedao.insertPersonas(txtapellido.strip().upper())
-
-    #if txtfecha != None and len(txtfecha.strip()) > 0:
-    #    guardado = pedao.insertPersonas(txtfecha.strip())
-
-    #if txtdireccion != None and len(txtdireccion.strip()) > 0:
-    #    guardado = pedao.insertPersonas(txtdireccion.strip())
-
-   # if txttelefono != None and len(txttelefono.strip()) > 0:
-    #    guardado = pedao.insertPersonas(txttelefono.strip())
-
-   # if txtciudad != None and len(txtciudad.strip()) > 0:
-    #    guardado = pedao.insertPersonas(txtciudad.strip())
-
-  #  if txtpais != None and len(txtpais.strip()) > 0:
-   #     guardado = pedao.insertPersonas(txtpais.strip())
-
     if guardado:
         return redirect(url_for('personas'))
     else:
         return redirect(url_for('add_personas'))
+
+
+@app.route('/eliminar-persona/<idpersona>')
+def eliminar_persona(idpersona):
+    pedao = personasDAO()
+    pedao.deletePersona(idpersona)
+    return redirect(url_for('personas'))
+
+
+
+
+@app.route('/edit-persona/<idpersona>')
+def edit_persona(idpersona):
+    pedao = personasDAO()
+    diccionario_persona = pedao.getPersonatById(idpersona)
+    return render_template('/mantenimiento_views/PersonaViews/form-edit.html', persona =  diccionario_persona)
+
+
+@app.route('/update-persona', methods=['POST'])
+def update_persona():
+    print(request.form)
+    pedao = personasDAO()
+    txtidpersona = request.form['txtidpersona']
+    txtcedula = request.form['txtcedula']
+    txtnombre = request.form['txtnombre']
+    txtapellido = request.form['txtapellido']
+    txtfecha = request.form['txtfecha']
+    txtdireccion = request.form['txtdireccion']
+    txttelefono = request.form['txttelefono']
+    txtciudad = request.form['txtciudad']
+    txtpais = request.form['txtpais']
+    guardado = False
+    if txtcedula and txtnombre and txtapellido and txtfecha and txtdireccion and txttelefono and txtciudad and txtpais != None and len(txtcedula.strip()) > 0:
+        guardado = pedao.insertPersonas(txtcedula.strip().upper(), txtnombre.strip().upper(),
+                                        txtapellido.strip().upper(), txtfecha.strip().upper(), txtdireccion.strip().upper(), txttelefono.strip().upper(),
+                                        txtciudad.strip().upper(), txtpais.strip().upper())
+    if guardado:
+        return redirect(url_for('personas'))
+    else:
+        return redirect(url_for('edit_persona', idpersona = txtidpersona))
+
+
+
 
 
 
