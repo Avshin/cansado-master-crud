@@ -243,13 +243,6 @@ def update_grado():
 
 
 
-
-
-
-
-
-
-
 #REFERENCIAL PERSONAS
 @app.route('/personas')
 def personas():
@@ -266,7 +259,6 @@ def add_personas():
 @app.route('/save-personas', methods=['POST'])
 def save_personas():
     pedao = personasDAO()
-    txtidpersona= request.form['txtidpersona']
     txtcedula = request.form['txtcedula']
     txtnombre = request.form['txtnombre']
     txtapellido = request.form['txtapellido']
@@ -299,8 +291,10 @@ def eliminar_persona(idpersona):
 @app.route('/edit-persona/<idpersona>')
 def edit_persona(idpersona):
     pedao = personasDAO()
+    lista_ciudades = cdao.getCiudades()
+    padao = paisDao()
     diccionario_persona = pedao.getPersonatById(idpersona)
-    return render_template('/mantenimiento_views/PersonaViews/form-edit.html', persona =  diccionario_persona)
+    return render_template('/mantenimiento_views/PersonaViews/form-edit.html', lista_paises = padao.getPaises(), lista_ciudades = cdao.getCiudades(), persona =  diccionario_persona)
 
 
 @app.route('/update-persona', methods=['POST'])
