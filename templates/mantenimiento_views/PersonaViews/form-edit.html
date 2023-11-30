@@ -41,7 +41,7 @@
 
 
         <label for="exampleFormControlSelect1">CIUDADES</label>
-        <select class="form-control" name="txtciudad" >
+        <select required class="form-control" name="txtciudad" >
         <option>SELECCIONE UNO</option>
 
         {%for item in lista_ciudades%}
@@ -53,7 +53,7 @@
 
 
             <label for="exampleFormControlSelect1">PAISES</label>
-            <select class="form-control" name="txtpais" >
+            <select required class="form-control" name="txtpais" >
             <option>SELECCIONE UNA OPCIÓN</option>
             {%for item in lista_paises%}
             <option value="{{item['id_pais']}}" >{{item['detalle_pais']}}</option>
