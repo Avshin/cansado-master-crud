@@ -51,7 +51,7 @@ class personasDAO:
         con = conexion.getConexion()
         cur = con.cursor()
         try:
-            cur.execute(sql, (id))
+            cur.execute(sql, (id,))
             persona = cur.fetchone()
             if persona:
                 return{
@@ -119,7 +119,7 @@ class personasDAO:
 
 
 
-    def updatePersona(self, id, cedula, nombre, apellido, fecha, direccion, telefono, ciudad, pais,):
+    def updatePersona(self, id, cedula, nombre, apellido, fecha, direccion, telefono, ciudad, pais):
         query = """
                 UPDATE public.personas
                 SET  cin_persona=%s,
@@ -128,15 +128,15 @@ class personasDAO:
                     fechanac_persona=%s,
                     direcc_persona=%s,
                     tel_persona=%s,
-                    detalle_ciudad=%s,
-                    detalle_pais=%s
+                    id_ciudad=%s,
+                    id_pais=%s
                 WHERE id_persona=%s;
         """
         conexion=Conexion()
         con = conexion.getConexion()
         cur = con.cursor()
         try:
-            cur.execute(query, (id,cedula, nombre, apellido, fecha, direccion, telefono, ciudad, pais, ))
+            cur.execute(query, (cedula, nombre, apellido, fecha, direccion, telefono, ciudad, pais, id,))
             con.commit()
             return True
         except con.Error as e:

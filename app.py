@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from referenciales.ciudad.CiudadDAO import ciudadDao
 from referenciales.cargo.CargoDAO import CargosDao
 from referenciales.pais.PaisDAO import paisDao
@@ -8,42 +8,119 @@ from referenciales.personas.PersonasDAO import personasDAO
 app = Flask(__name__)
 
 
+app.secret_key = b'm'
+""" 
+@app.before_request
+def before_request():
+    if 'usuario' in session:
+        return render_template('modulo_views/index.html')
+    else:
+        return redirect(url_for('login')) """
+
+
 #MENU PRINCIPAL
-@app.route('/')
+@app.route('/menu')
 def menu_principal():
-    return render_template('modulo_views/index.html')
+    if 'usuario' in session:
+        return render_template('modulo_views/index.html')
+    else:
+        return redirect(url_for('login'))
+    
 
 #TABLAS
 @app.route('/tablas')
 def menu_tablas():
+    if 'usuario' in session:
+        return render_template('modulo_views/index.html')
+    else:
+        return redirect(url_for('login'))
     return render_template('Vista_tablas/index.html')
 
+
+
+
+
+
 #LOGIN
-@app.route('/login')
+@app.route('/',methods=['GET', 'POST'])
 def login():
-    return render_template('login_views/login.html')
+    if request.method == 'GET':
+        if 'usuario' in session:
+            return redirect(url_for('menu_principal'))
+        return render_template('login_views/login.html')
+    else:
+        print(request.form)
+        usuario = request.form['usuario']
+        clave = request.form['clave']
+        if usuario == 'a' and clave == 'a':
+            session['usuario'] = usuario
+            return redirect(url_for('menu_principal'))
+        else:
+            return redirect(url_for('login'))
+        
+        
+@app.route('/logout')
+def logout():
+    session.pop('usuario', None)
+    return redirect(url_for('login'))
+
+
+
+
+
+
 
 @app.route('/register')
 def register():
+    if 'usuario' in session:
+        return render_template('modulo_views/index.html')
+    else:
+        return redirect(url_for('login'))
     return render_template('login_views/register.html')
 
 @app.route('/recuperar')
 def recuperar():
+    if 'usuario' in session:
+        return render_template('modulo_views/index.html')
+    else:
+        return redirect(url_for('login'))
     return render_template('login_views/recuperar.html')
 
 @app.route('/ayuda')
 def ayuda():
+    if 'usuario' in session:
+        return render_template('modulo_views/index.html')
+    else:
+        return redirect(url_for('login'))
     return render_template('login_views/ayuda.html')
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #REFERENCIAL - CIUDADES
 cdao=ciudadDao()
 @app.route('/ciudades')
 def index():
-    return render_template('/mantenimiento_views/ciudadViews/index.html', lista_ciudades = cdao.getCiudades())
+    if 'usuario' in session:
+        return render_template('modulo_views/index.html')
+    elif 'usuario' not in session:
+        return redirect(url_for('login'))
+    else:
+        return render_template('/mantenimiento_views/ciudadViews/index.html', lista_ciudades = cdao.getCiudades())
 
 @app.route('/add-ciudad')
 def add_ciudad():
+    
     return render_template('/mantenimiento_views/ciudadViews/form-add.html')
 
 
@@ -291,7 +368,6 @@ def eliminar_persona(idpersona):
 @app.route('/edit-persona/<idpersona>')
 def edit_persona(idpersona):
     pedao = personasDAO()
-    lista_ciudades = cdao.getCiudades()
     padao = paisDao()
     diccionario_persona = pedao.getPersonatById(idpersona)
     return render_template('/mantenimiento_views/PersonaViews/form-edit.html', lista_paises = padao.getPaises(), lista_ciudades = cdao.getCiudades(), persona =  diccionario_persona)
@@ -312,9 +388,12 @@ def update_persona():
     txtpais = request.form['txtpais']
     guardado = False
     if txtcedula and txtnombre and txtapellido and txtfecha and txtdireccion and txttelefono and txtciudad and txtpais != None and len(txtcedula.strip()) > 0:
-        guardado = pedao.insertPersonas(txtcedula.strip().upper(), txtnombre.strip().upper(),
-                                        txtapellido.strip().upper(), txtfecha.strip().upper(), txtdireccion.strip().upper(), txttelefono.strip().upper(),
-                                        txtciudad.strip().upper(), txtpais.strip().upper())
+        # id, cedula, nombre, apellido, fecha, direccion, telefono, ciudad, pais
+        guardado = pedao.updatePersona(txtidpersona, txtcedula.strip().upper(), 
+                                       txtnombre.strip().upper(),txtapellido.strip().upper(), 
+                                       txtfecha.strip().upper(), txtdireccion.strip().upper(), 
+                                       txttelefono.strip().upper(), txtciudad.strip().upper(), 
+                                       txtpais.strip().upper())
     if guardado:
         return redirect(url_for('personas'))
     else:
