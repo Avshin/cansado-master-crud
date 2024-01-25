@@ -42,6 +42,14 @@ def menu_tablas():
 
 
 
+#EXPEDIENTES
+@app.route('/expedientes')
+def menu_expedientes():
+    if 'usuario' in session:
+        return render_template ('expedientes_views/index.html')
+    elif 'usuario' not in session:
+        return render_template (url_for('login'))
+
 #LOGIN
 @app.route('/',methods=['GET', 'POST'])
 def login():
